@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Подготовка к олимпиадам</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0b0f2a 0%, #1a1f3f 100%);
+            color: #e0f0ff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Segoe UI', 'Roboto', system-ui, sans-serif;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            background: rgba(10, 25, 55, 0.6);
+            backdrop-filter: blur(15px);
+            border: 2px solid #2a5f8a;
+            border-radius: 60px;
+            padding: 50px 40px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.7), 0 0 0 1px #3399ff inset, 0 0 50px #0044ff;
+        }
+
+        h1 {
+            font-size: 4rem;
+            font-weight: 300;
+            letter-spacing: 3px;
+            margin-bottom: 20px;
+            text-shadow: 0 0 30px #00aaff, 0 0 60px #0044ff;
+            background: linear-gradient(45deg, #aaccff, #ffffff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .dragon {
+            font-size: 5rem;
+            margin: 20px 0;
+            filter: drop-shadow(0 0 20px #3399ff);
+        }
+
+        p {
+            font-size: 1.5rem;
+            color: #bbddff;
+            margin-bottom: 40px;
+            text-shadow: 0 0 10px #0066cc;
+        }
+
+        .start-btn {
+            background: linear-gradient(45deg, #0066ff, #00ccff);
+            border: none;
+            border-radius: 60px;
+            padding: 20px 60px;
+            font-size: 2rem;
+            font-weight: 600;
+            color: white;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            box-shadow: 0 0 30px #0066ff, 0 10px 20px rgba(0,0,0,0.5);
+            transition: 0.3s;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+
+        .start-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 60px #00ccff, 0 15px 30px black;
+        }
+
+        .start-btn a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .footer {
+            margin-top: 30px;
+            color: #6688aa;
+            font-size: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Подготовка к олимпиадам</h1>
+        <div class="dragon">🐉✨</div>
+        <p>Решай задачи, учи формулы, побеждай!</p>
+        <button class="start-btn"><a href="/tasks/">Начать</a></button>
+        <div class="footer">С любовью, маленький дракончик 🐲</div>
+    </div>
+</body>
+</html>
