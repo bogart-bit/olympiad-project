@@ -1,2 +1,7 @@
 django>=6.0.3,<6.1
 gunicorn>=23.0.0,<24
+django>=6.0.3,<6.1
+gunicorn>=23.0.0,<24
+Pillow
+python-docx
+pdfplumber
