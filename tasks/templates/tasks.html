@@ -1,0 +1,487 @@
+py manage.py runserve<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Олимпиадные задачи – будущее</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Roboto', system-ui, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0b0f2a 0%, #1a1f3f 100%);
+            color: #e0f0ff;
+            min-height: 100vh;
+            padding: 30px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        h1 {
+            font-size: 3rem;
+            font-weight: 300;
+            letter-spacing: 2px;
+            text-align: center;
+            margin-bottom: 30px;
+            text-shadow: 0 0 20px #00aaff, 0 0 40px #0044ff;
+            background: linear-gradient(45deg, #aaccff, #ffffff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .welcome-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(8, 12, 30, 0.95);
+            backdrop-filter: blur(15px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            transition: opacity 0.5s ease;
+        }
+
+        .welcome-modal {
+            max-width: 700px;
+            width: 90%;
+            background: rgba(10, 25, 55, 0.9);
+            backdrop-filter: blur(20px);
+            border: 3px solid #2a5f8a;
+            border-radius: 80px;
+            padding: 50px 40px;
+            text-align: center;
+            box-shadow: 0 30px 70px rgba(0,0,0,0.8), 0 0 0 2px #3399ff inset, 0 0 80px #0044ff;
+            animation: glowPulse 3s infinite alternate;
+        }
+
+        @keyframes glowPulse {
+            from { box-shadow: 0 30px 70px rgba(0,0,0,0.8), 0 0 0 2px #3399ff inset, 0 0 50px #0066ff; }
+            to   { box-shadow: 0 30px 70px rgba(0,0,0,0.8), 0 0 0 4px #66ccff inset, 0 0 100px #00aaff; }
+        }
+
+        .welcome-modal h2 {
+            font-size: 4rem;
+            font-weight: 300;
+            margin-bottom: 20px;
+            text-shadow: 0 0 30px #00aaff, 0 0 60px #0044ff;
+            background: linear-gradient(45deg, #aaccff, #ffffff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .welcome-dragon {
+            font-size: 6rem;
+            margin: 20px 0;
+            filter: drop-shadow(0 0 30px #3399ff);
+        }
+
+        .welcome-modal p {
+            font-size: 1.8rem;
+            color: #bbddff;
+            margin-bottom: 40px;
+            text-shadow: 0 0 15px #0066cc;
+        }
+
+        .start-btn {
+            background: linear-gradient(45deg, #0066ff, #00ccff);
+            border: none;
+            border-radius: 60px;
+            padding: 20px 70px;
+            font-size: 2.2rem;
+            font-weight: 600;
+            color: white;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            cursor: pointer;
+            box-shadow: 0 0 40px #0066ff, 0 10px 20px rgba(0,0,0,0.5);
+            transition: 0.3s;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+
+        .start-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 80px #00ccff, 0 15px 30px black;
+        }
+
+        .formula-btn {
+            background: transparent;
+            border: 2px solid #00ccff;
+            color: #00ccff;
+            padding: 12px 30px;
+            font-size: 1.2rem;
+            border-radius: 50px;
+            cursor: pointer;
+            margin-bottom: 25px;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 15px rgba(0, 204, 255, 0.3);
+            backdrop-filter: blur(5px);
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        .formula-btn:hover {
+            background: #00ccff;
+            color: #0b0f2a;
+            box-shadow: 0 0 30px #00ccff;
+            transform: scale(1.05);
+        }
+
+        .formulas-block {
+            background: rgba(10, 30, 60, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(0, 200, 255, 0.3);
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(0, 200, 255, 0.2) inset;
+            display: none;
+        }
+
+        .formulas-block h3 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: #88ddff;
+            text-shadow: 0 0 10px #0066ff;
+        }
+
+        .formula-item {
+            border-bottom: 1px dashed #3399ff;
+            padding: 15px 0;
+        }
+
+        .formula-item:last-child {
+            border-bottom: none;
+        }
+
+        .formula-title {
+            font-weight: 600;
+            color: #aaddff;
+            font-size: 1.2rem;
+            margin-bottom: 8px;
+        }
+
+        .formula-content {
+            color: #cce5ff;
+            font-size: 1rem;
+        }
+
+        .filter-form {
+            background: rgba(16, 25, 55, 0.8);
+            backdrop-filter: blur(8px);
+            border: 1px solid #2a4f7c;
+            border-radius: 60px;
+            padding: 15px 25px;
+            margin-bottom: 30px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .filter-group label {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+            color: #99ccff;
+        }
+
+        .filter-group select {
+            background: rgba(0, 30, 60, 0.8);
+            border: 1px solid #1e90ff;
+            border-radius: 40px;
+            padding: 10px 20px;
+            color: #e0f0ff;
+            font-size: 1rem;
+            outline: none;
+            cursor: pointer;
+            transition: 0.3s;
+            min-width: 160px;
+            box-shadow: 0 0 10px rgba(30, 144, 255, 0.3);
+        }
+
+        .filter-group select:hover {
+            border-color: #00bfff;
+            box-shadow: 0 0 20px #00bfff;
+        }
+
+        .filter-group button {
+            background: linear-gradient(45deg, #0066ff, #00ccff);
+            border: none;
+            border-radius: 40px;
+            padding: 12px 30px;
+            color: white;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 0 15px #0066ff;
+        }
+
+        .filter-group button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 30px #00ccff;
+        }
+
+        .reset-btn {
+            background: linear-gradient(45deg, #3a4a6b, #1e2f4f) !important;
+            box-shadow: 0 0 10px #3a4a6b !important;
+        }
+
+        .reset-btn:hover {
+            background: linear-gradient(45deg, #4f6b9f, #2f4f8f) !important;
+            box-shadow: 0 0 25px #5f8fd9 !important;
+        }
+
+        .task {
+            background: rgba(12, 25, 50, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid #2a5f8a;
+            border-radius: 30px;
+            padding: 25px;
+            margin: 20px 0;
+            box-shadow: 0 20px 35px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(100, 200, 255, 0.2) inset;
+            transition: 0.4s;
+        }
+
+        .task:hover {
+            border-color: #00bfff;
+            box-shadow: 0 0 40px #0066ff, 0 20px 35px rgba(0, 0, 0, 0.8);
+        }
+
+        .task h2 {
+            font-size: 1.8rem;
+            color: #aad0ff;
+            text-shadow: 0 0 8px #0077ff;
+            margin-bottom: 15px;
+        }
+
+        .task p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin: 10px 0;
+            color: #d0e5ff;
+        }
+
+        .task label {
+            display: block;
+            margin: 15px 0 5px;
+            font-weight: 300;
+            color: #99ccff;
+        }
+
+        .task input[type="text"] {
+            background: rgba(0, 20, 40, 0.8);
+            border: 1px solid #1e90ff;
+            border-radius: 40px;
+            padding: 12px 20px;
+            width: 250px;
+            max-width: 100%;
+            color: #fff;
+            outline: none;
+            transition: 0.3s;
+            margin-right: 10px;
+        }
+
+        .task input[type="text"]:focus {
+            border-color: #00ffff;
+            box-shadow: 0 0 20px #00bfff;
+        }
+
+        .show-answer {
+            background: transparent;
+            border: 2px solid #00bfff;
+            border-radius: 40px;
+            padding: 12px 30px;
+            color: #00bfff;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0 0 10px #00bfff;
+            margin-top: 10px;
+        }
+
+        .show-answer:hover {
+            background: #00bfff;
+            color: #0a1a2a;
+            box-shadow: 0 0 30px #00ffff;
+        }
+
+        .answer-block {
+            display: none;
+            background: rgba(0, 50, 100, 0.6);
+            backdrop-filter: blur(5px);
+            border: 1px solid #00ccff;
+            border-radius: 20px;
+            padding: 20px;
+            margin-top: 20px;
+            color: #e0f0ff;
+            box-shadow: 0 0 25px #0055aa inset;
+        }
+
+        .answer-block p {
+            margin: 10px 0;
+        }
+
+        .no-tasks {
+            text-align: center;
+            font-size: 1.5rem;
+            padding: 50px;
+            color: #99aaff;
+            text-shadow: 0 0 10px #2266dd;
+        }
+    </style>
+</head>
+<body>
+    <div id="welcomeOverlay" class="welcome-overlay">
+        <div class="welcome-modal">
+            <h2>Подготовка к олимпиадам</h2>
+            <div class="welcome-dragon">🐉✨</div>
+            <p>Тренируйся с задачами прошлых лет</p>
+            <button class="start-btn" id="startBtn">Начать</button>
+        </div>
+    </div>
+
+    <div class="container">
+        <h1>⚡ ОЛИМПИАДНЫЕ ЗАДАЧИ ⚡</h1>
+
+        <div style="text-align: center;">
+            <button id="toggleFormulas" class="formula-btn">📚 НУЖНЫЕ ФОРМУЛЫ</button>
+        </div>
+
+        <div id="formulasContainer" class="formulas-block">
+            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
+                <h3 style="margin: 0;">🐉📐 Полезные формулы</h3>
+                <span style="font-size: 1.5rem;">🐲✨</span>
+            </div>
+            {% if formulas %}
+                {% for f in formulas %}
+                    <div class="formula-item">
+                        <div class="formula-title">{{ f.title }}</div>
+                        <div class="formula-content">{{ f.content|safe }}</div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p style="text-align:center; padding:15px;">😴 Нет формул для выбранного года и класса. Дракончик спит...</p>
+            {% endif %}
+        </div>
+
+        <form method="get" class="filter-form">
+            <div class="filter-group">
+                <label for="year">Год</label>
+                <select name="year" id="year">
+                    <option value="all">Все годы</option>
+                    {% for y in years %}
+                        <option value="{{ y }}" py manage.py runserver{% if selected_year|add:"0" == y %}selected{% endif %}>{{ y }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="filter-group">
+                <label for="grade">Класс</label>
+                <select name="grade" id="grade">
+                    <option value="all">Все классы</option>
+                    {% for g in grades %}
+                        <option value="{{ g }}" {% if selected_grade == g %}selected{% endif %}>{{ g }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="filter-group">
+                <button type="submit">Применить</button>
+            </div>
+            <div class="filter-group">
+                <button type="button" class="reset-btn" onclick="window.location.href='.'">Сбросить</button>
+            </div>
+        </form>
+
+        {% if tasks %}
+            {% for task in tasks %}
+                <div class="task" id="task-{{ task.id }}">
+                    <h2>Задание {{ forloop.counter }}: {{ task.year }} — {{ task.grade }} класс</h2>
+                    <p><b>Условие:</b> {{ task.condition }}</p>
+
+                    <!-- Картинка к задаче -->
+                    {% if task.image %}
+                    <div class="task-image">
+                        <img src="{{ task.image.url }}" alt="Иллюстрация к задаче" style="max-width: 100%; max-height: 300px; border-radius: 8px; margin: 10px 0;">
+                    </div>
+                    {% endif %}
+
+                    <label for="ans-{{ task.id }}">Ваш ответ:</label>
+                    <input type="text" id="ans-{{ task.id }}" placeholder="Введите ответ">
+                    <button class="show-answer" data-id="{{ task.id }}">Подтвердить</button>
+
+                    <div id="answer-{{ task.id }}" class="answer-block">
+                        <p><b>Правильный ответ:</b> {{ task.correct_answer }}</p>
+                        <p><b>Решение:</b> {{ task.solution }}</p>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="no-tasks">
+                <p>🚀 Нет задач, соответствующих выбранным фильтрам.</p>
+            </div>
+        {% endif %}
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const welcomeOverlay = document.getElementById('welcomeOverlay');
+            const startBtn = document.getElementById('startBtn');
+
+            if (!sessionStorage.getItem('welcomeShown')) {
+                welcomeOverlay.style.display = 'flex';
+            } else {
+                welcomeOverlay.style.display = 'none';
+            }
+
+            startBtn.addEventListener('click', function() {
+                welcomeOverlay.style.display = 'none';
+                sessionStorage.setItem('welcomeShown', 'true');
+            });
+
+            const answerButtons = document.querySelectorAll('.show-answer');
+            answerButtons.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const taskId = this.dataset.id;
+                    document.getElementById('answer-' + taskId).style.display = 'block';
+                });
+            });
+
+            const toggleBtn = document.getElementById('toggleFormulas');
+            const formulasBlock = document.getElementById('formulasContainer');
+            toggleBtn.addEventListener('click', function() {
+                if (formulasBlock.style.display === 'none' || formulasBlock.style.display === '') {
+                    formulasBlock.style.display = 'block';
+                } else {
+                    formulasBlock.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
